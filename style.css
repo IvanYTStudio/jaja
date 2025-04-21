@@ -1,28 +1,28 @@
 body {
     margin: 0;
-    overflow: hidden; /* Prevent scrollbars */
-    background-color: #f0f0f0; /* Fallback background color */
+    overflow: hidden;
+    background-color: #f0f0f0;
 }
 
 canvas {
-    display: block; /* Remove extra space below canvas */
-    width: 100%; /* Make canvas responsive width */
-    height: 100vh; /* Make canvas responsive height, viewport height */
+    display: block;
+    width: 100%;
+    height: 100vh;
 }
 
 #weaponSlots {
     position: absolute;
-    bottom: 2vh; /* Use viewport height units for better scaling */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Fine-tune centering */
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 2vw; /* Use viewport width units for better spacing */
+    gap: 2vw;
 }
 
 #weaponSlots img {
-    height: auto; /* Maintain aspect ratio */
-    width: 5vw; /* Adjust width to be a larger percentage of viewport width */
-    max-width: 3vw; /* Increase max-width slightly */
+    height: auto;
+    width: 5vw;
+    max-width: 3vw;
     filter: grayscale(1);
 }
 

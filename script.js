@@ -8,17 +8,17 @@ const characterImages = [];
 const characterHitImages = [];
 const numberOfCharacters = 19;
 const characterSpeed = 1;
-const characterHeight = 50; // Adjust as needed
-const safeBottomMargin = canvas.height * 0.1; // 10% from the bottom
+const characterHeight = 50;
+const safeBottomMargin = canvas.height * 0.1;
 
 const eggImage = new Image();
 const weapon2Image = new Image();
 eggImage.src = 'images/egg.png';
 weapon2Image.src = 'images/weapon2.png';
 const eggThrowerImage = new Image();
-eggThrowerImage.src = 'images/eggthrower.png'; // Default egg thrower image
+eggThrowerImage.src = 'images/eggthrower.png';
 const weapon1Image = new Image();
-weapon1Image.src = 'images/weapon1.png'; // Image for Weapon 1
+weapon1Image.src = 'images/weapon1.png';
 const weapon3Images = [];
 for (let i = 1; i <= 5; i++) {
     const img = new Image();
@@ -31,12 +31,12 @@ const eggThrowerX = canvas.width / 2 - eggThrowerWidth / 2;
 const eggThrowerY = canvas.height - safeBottomMargin - eggThrowerHeight;
 const eggSpeed = 5;
 const eggs = [];
-let eggCooldownDuration = 1000; // milliseconds for default egg
-const weapon1CooldownMultiplier = 1; // Slow down Weapon 1 firing
+let eggCooldownDuration = 1000;
+const weapon1CooldownMultiplier = 1;
 let lastEggTime = 0;
 
 const characters = [];
-let spawnInterval = 1000; // Initial spawn interval in milliseconds (1 second)
+let spawnInterval = 1000;
 let lastSpawnTime = 0;
 
 // Scoring and Leveling
@@ -64,21 +64,21 @@ const weaponUnlockLevels = {
     weapon2: 20,
     weapon3: 30
 };
-let currentWeapon = 'egg'; // Default weapon
+let currentWeapon = 'egg';
 
 // Weapon 2 variables
 let weapon2Active = false;
 let weapon2ActiveEgg = null;
 let weapon2CooldownTimer = 0;
-const weapon2Duration = 60000; // 1 minute in milliseconds
-const weapon2Cooldown = 120000; // 1 minutes in milliseconds
+const weapon2Duration = 30000;
+const weapon2Cooldown = 120000;
 let lastWeapon2UseTime = 0;
 
 // Weapon 3 variables
 const weapon3Count = 10;
 let weapon3Active = false;
 let weapon3CooldownTimer = 0;
-const weapon3CooldownDuration = 20000; // 10 seconds in milliseconds
+const weapon3CooldownDuration = 20000;
 let lastWeapon3UseTime = 0;
 
 // Booster variables
@@ -121,9 +121,9 @@ class Character {
         this.width = this.image.width/7;
         this.height = this.image.height/7;
         this.isHit = false;
-        this.hasSurvived = false; // New property
+        this.hasSurvived = false;
         this.hitTimer = 0;
-        this.disappearTime = 3000; // 3 seconds
+        this.disappearTime = 3000;
     }
 
     draw() {
@@ -142,10 +142,10 @@ class Character {
             if (!this.hasSurvived && this.x + this.width > canvas.width * 0.8) {
                 this.hasSurvived = true;
                 survivedEnemies++;
-                this.hitTimer = 0; // Reset hit timer only when they first survive
+                this.hitTimer = 0;
             }
             if (this.hasSurvived) {
-                this.hitTimer += deltaTime; // Increment timer for survived enemies
+                this.hitTimer += deltaTime;
             }
         } else {
             this.hitTimer += deltaTime;
@@ -154,12 +154,12 @@ class Character {
 }
 
 class Egg {
-    constructor(x, y, targetX, targetY, angleOffset = 0) { // Added angleOffset
+    constructor(x, y, targetX, targetY, angleOffset = 0) {
         this.x = x;
         this.y = y;
         this.targetX = targetX;
         this.targetY = targetY;
-        this.angleOffset = angleOffset; // Angle deviation for multi-shot
+        this.angleOffset = angleOffset;
         const dx = targetX - x;
         const dy = targetY - y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -186,10 +186,10 @@ class WanderingWeapon {
         this.image = image;
         this.width = 70;
         this.height = 70;
-        this.velocityX = (Math.random() - 0.5) * 15; // Initial random velocity
+        this.velocityX = (Math.random() - 0.5) * 15;
         this.velocityY = (Math.random() - 0.5) * 15;
         this.durationTimer = 0;
-        this.directionChangeChance = 0.01; // 10% chance to change direction
+        this.directionChangeChance = 0.01;
     }
 
     draw() {
@@ -247,10 +247,10 @@ function handleEggThrow(event) {
 
         if (level >= weaponUnlockLevels.weapon1) {
             // Weapon 1 (Triple Shot)
-            const angleIncrement = Math.PI / 18; // Increased spread
+            const angleIncrement = Math.PI / 18;
             for (let i = -1; i <= 1; i++) {
                 const angle = Math.atan2(clickY - startY, clickX - startX) + i * angleIncrement;
-                const targetXOffset = startX + 100 * Math.cos(angle); // Create a target point
+                const targetXOffset = startX + 100 * Math.cos(angle);
                 const targetYOffset = startY + 100 * Math.sin(angle);
                 eggs.push(new Egg(startX, startY, targetXOffset, targetYOffset));
             }
@@ -275,8 +275,8 @@ function checkCollisions() {
                 egg.y < character.y + character.height &&
                 egg.y + egg.height > character.y) {
                 // Collision detected
-                eggs.splice(i, 1); // Remove the egg
-                character.isHit = true; // Mark the character as hit
+                eggs.splice(i, 1);
+                character.isHit = true;
                 score += 1;
                 hitCountForLevel++;
                 if (hitCountForLevel >= levelUpThreshold) {
@@ -319,7 +319,7 @@ function drawScore() {
     const bottomPadding = 50;
     const scoreYWithPadding = canvas.height - bottomPadding - 30;
 
-    const text = score === 1 ? `${score} ćaci je otisao kući plačući` : `${score} ćacija je otislo kući plačući`;
+    const text = score === 1 ? `${score} ćaci je otišao kući plačući` : `${score} ćacija je otišlo kući plačući`;
 
     ctx.strokeText(text, scoreDisplayX, scoreYWithPadding);
     ctx.fillText(text, scoreDisplayX, scoreYWithPadding);
@@ -336,7 +336,7 @@ function drawLevel() {
 
 function updateWeaponAvailability() {
     if (level >= weaponUnlockLevels.weapon1) {
-        weapon1Element.style.display = 'none'; // Hide Weapon 1 icon
+        weapon1Element.style.display = 'none';
     } else {
         weapon1Element.style.display = 'block';
         weapon1Element.addEventListener('click', selectWeapon1);
@@ -426,14 +426,14 @@ function toggleWeapon3() {
         weapon3Active = true;
         lastWeapon3UseTime = currentTime;
         weapon3CooldownTimer = weapon3CooldownDuration;
-        updateWeaponAvailability(); // Update UI immediately
-        fireWeapon3(); // Immediately fire Weapon 3
+        updateWeaponAvailability();
+        fireWeapon3();
         console.log('Weapon 3 activated and fired');
     } else if (level >= weaponUnlockLevels.weapon3) {
         console.log(`Weapon 3 on cooldown. Time remaining: ${(weapon3CooldownTimer / 1000).toFixed(1)}s`);
     }
-    currentWeapon = 'egg'; // Reset current weapon to default
-    weapon2Active = false; // Ensure Weapon 2 is off
+    currentWeapon = 'egg';
+    weapon2Active = false;
 }
 
 function fireWeapon3() {
@@ -441,7 +441,7 @@ function fireWeapon3() {
     const startY = eggThrowerY;
 
     if (level >= weaponUnlockLevels.weapon3) {
-        for (let i = 0; i < 10; i++) { // Using a fixed number 5 for weapon3Count
+        for (let i = 0; i < 10; i++) {
             const randomImageIndex = Math.floor(Math.random() * weapon3Images.length);
             eggs.push(new WanderingWeapon(startX, startY, weapon3Images[randomImageIndex]));
         }
@@ -515,16 +515,16 @@ function checkOrientation() {
             warningDiv.style.textAlign = 'center';
             warningDiv.textContent = 'Okrenite uredjaj horizontalno.';
             document.body.appendChild(warningDiv);
-            canvas.style.display = 'none'; // Hide the game canvas
-            weaponSlotsDiv.style.display = 'none'; // Hide weapon slots
+            canvas.style.display = 'none';
+            weaponSlotsDiv.style.display = 'none';
         } else {
-            warning.style.display = 'block'; // Ensure the warning is visible
+            warning.style.display = 'block';
             canvas.style.display = 'none';
             weaponSlotsDiv.style.display = 'none';
         }
     } else {
         if (warning) {
-            warning.style.display = 'none'; // Hide the warning in landscape
+            warning.style.display = 'none';
             canvas.style.display = 'block';
             weaponSlotsDiv.style.display = 'flex';
         }
@@ -545,7 +545,7 @@ function updateGame(currentTime) {
         weapon2CooldownTimer -= deltaTime;
         if (weapon2CooldownTimer <= 0) {
             weapon2CooldownTimer = 0;
-            updateWeaponAvailability(); // Re-enable weapon 2
+            updateWeaponAvailability();
         }
     }
 
@@ -553,7 +553,7 @@ function updateGame(currentTime) {
         weapon3CooldownTimer -= deltaTime;
         if (weapon3CooldownTimer <= 0) {
             weapon3CooldownTimer = 0;
-            updateWeaponAvailability(); // Re-enable Weapon 3
+            updateWeaponAvailability();
         }
     }
 
@@ -588,7 +588,7 @@ function updateGame(currentTime) {
         weapon2ActiveEgg.draw();
         if (weapon2ActiveEgg.durationTimer >= weapon2Duration) {
             weapon2ActiveEgg = null;
-            weapon2Active = false; // Deactivate Weapon 2 after duration
+            weapon2Active = false;
         }
     }
 
@@ -596,7 +596,7 @@ function updateGame(currentTime) {
     checkCollisions();
     drawScore();
     drawLevel();
-    drawSurvived(); // Draw the survival counter
+    drawSurvived();
 
     requestAnimationFrame(updateGame);
 }
