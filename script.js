@@ -31,7 +31,7 @@ const eggThrowerX = canvas.width / 2 - eggThrowerWidth / 2;
 const eggThrowerY = canvas.height - safeBottomMargin - eggThrowerHeight;
 const eggSpeed = 5;
 const eggs = [];
-let eggCooldownDuration = 1000;
+let eggCooldownDuration = 700;
 const weapon1CooldownMultiplier = 1;
 let lastEggTime = 0;
 
